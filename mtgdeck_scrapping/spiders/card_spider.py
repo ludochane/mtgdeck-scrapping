@@ -1,5 +1,5 @@
 import scrapy
-from scrapy_tutorial.items import CardItem
+from mtgdeck_scrapping.items import CardItem
 
 class CardSpider(scrapy.Spider):
     name = "card"
