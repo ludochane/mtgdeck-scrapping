@@ -27,7 +27,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 2
+DOWNLOAD_DELAY = 1
 #DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 CONCURRENT_REQUESTS_PER_DOMAIN = 1
@@ -67,7 +67,7 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 1
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'mtgdeck_scrapping.pipelines.SomePipeline': 300,
+#    'scrapy.exporters.CsvItemExporter': 300
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -90,3 +90,15 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 1
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# On décide d'enregistrer les datas générées par le crawl dans output/%(time)s/decks.csv
+#FEED_URI = 'output/%(time)s/decks.csv'
+FEED_URI = 'output/%(time)s/decks.json'
+
+# On retient le format csv comme format de fichier pour les datas récoltées
+#FEED_FORMAT = 'csv'
+FEED_FORMAT = 'jsonlines'
+FEED_EXPORTERS_BASE = {
+#    'csv': 'scrapy.contrib.exporter.CsvItemExporter',
+    'jsonlines': 'scrapy.exporters.JsonLinesItemExporter'
+}
