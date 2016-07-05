@@ -6,7 +6,7 @@ class DeckSpider(scrapy.Spider):
     name = "deck"
     allowed_domains = ["starcitygames.com"]
     start_urls = [
-        "http://sales.starcitygames.com//deckdatabase/deckshow.php?&t%%5BC1%%5D=1&start_date=06/26/2016&end_date=07/03/2016&start_num=%s&limit=5" % start_num for start_num in xrange(0, 6, 5)
+        "http://sales.starcitygames.com//deckdatabase/deckshow.php?&t%%5BC1%%5D=1&start_date=01/01/2016&end_date=01/31/2016&start_num=%s&limit=100" % start_num for start_num in xrange(0, 450, 100)
     ]
 
     def parse(self, response):
