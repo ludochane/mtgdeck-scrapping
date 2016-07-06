@@ -6,7 +6,8 @@ class DeckSpider(scrapy.Spider):
     name = "deck"
     allowed_domains = ["starcitygames.com"]
     start_urls = [
-        "http://sales.starcitygames.com//deckdatabase/deckshow.php?&t%%5BC1%%5D=1&start_date=01/01/2016&end_date=01/31/2016&start_num=%s&limit=100" % start_num for start_num in xrange(0, 450, 100)
+        #"http://sales.starcitygames.com//deckdatabase/deckshow.php?&t%%5BC1%%5D=1&start_date=01/01/2016&end_date=01/31/2016&start_num=%s&limit=100" % start_num for start_num in xrange(0, 450, 100)
+        "http://sales.starcitygames.com//deckdatabase/deckshow.php?&t%%5BC1%%5D=1&start_date=02/01/2016&end_date=06/30/2016&start_num=%s&limit=100" % start_num for start_num in xrange(2400, 5200, 100)
     ]
 
     def parse(self, response):
@@ -21,7 +22,9 @@ class DeckSpider(scrapy.Spider):
                 deck['event'] = deckTr.xpath('td[4]/text()').extract()[0]
                 deck['format'] = deckTr.xpath('td[5]/text()').extract()[0]
                 deck['date'] = deckTr.xpath('td[6]/a/text()').extract()[0]
-                deck['location'] = deckTr.xpath('td[7]/a/text()').extract()[0]
+                locations = deckTr.xpath('td[7]/a/text()').extract()
+                if (locations):
+                    deck['location'] = locations[0]
                 deck['maincards'] = []
                 #yield deck
                 yield scrapy.Request(deck['url'], callback=self.parse_deck, meta={'deck': deck})
